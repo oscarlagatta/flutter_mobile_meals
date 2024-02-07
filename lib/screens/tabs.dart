@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meals/model/meal.dart';
 import 'package:meals/screens/categories.dart';
+import 'package:meals/screens/filters.dart';
 import 'package:meals/screens/meals.dart';
 import 'package:meals/widgets/main_drawer.dart';
 
@@ -21,7 +22,8 @@ class _TabScreenState extends State<TabsScreen> {
   void _showInfoMessage(String message) {
     // snack bar
     ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
   }
 
   // Toggle Meal Favorite Status
@@ -47,6 +49,17 @@ class _TabScreenState extends State<TabsScreen> {
     });
   }
 
+  void _setScreen(String identifier) {
+    Navigator.of(context).pop();
+    if (identifier == 'filters') {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (ctx) => const FiltersScreen(),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget activePage = CategoriesScreen(
@@ -67,7 +80,9 @@ class _TabScreenState extends State<TabsScreen> {
       appBar: AppBar(
         title: Text(activePageTitle),
       ),
-      drawer: const MainDrawer(),
+      drawer: MainDrawer(
+        onSelectScreen: _setScreen,
+      ),
       body: activePage,
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,
