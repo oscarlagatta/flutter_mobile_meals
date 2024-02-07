@@ -20,7 +20,6 @@ class CategoriesScreen extends StatelessWidget {
         ),
       ),
     );
-    // Navigator.push(context,  )
   }
 
   @override
